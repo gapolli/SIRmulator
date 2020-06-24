@@ -24,31 +24,55 @@
 
 /************************* CONSTANTS SECTION **************************/
 
-// constants here
+#define SUSCEPTIBLE	0 // S status
+#define INFECTED	1 // I status
+#define RECOVERED	2 // R status
 
 
 /************************* STRUCTURES SECTION *************************/
 
-// structs here
+typedef struct Node{
+	int status;
+	int iniPeriod;
+	int endPeriod;
+	struct Node *next;
+} NODEPTR;
 
 
 /************************* CODE CONVENTIONS ***************************/
 
-// code conventions here
+/*
+ * In function returns:
+ * 1 - means success
+ * 0 - means failure
+ */
  
 
 /************************** HEADERS SECTION ***************************/
 
-// function headers here
+int initVector(int populationLimit);
+int calculateGraphDegree(int* vector);
+int connectIndividuals();
+void iterate();
+int verifyIndividualPeriod();
+int changeIndividualStatus();
+int saveInfected();
+/*
+ * https://c-for-dummies.com/blog/?p=831
+ * https://cboard.cprogramming.com/c-programming/51799-plot-graph-screen.html
+ */
+int plotCurve();
 
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
 	
+	// needs to receive params via command line (argv)
+	
 	// code blocks here
 	
-	return 0; //need to return system status
+	return 0; // system status
 }
 
 
