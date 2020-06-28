@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 /************************* CONSTANTS SECTION **************************/
@@ -31,12 +32,12 @@
 
 /************************* STRUCTURES SECTION *************************/
 
-typedef struct Node{
+typedef struct Subject{
 	int status;
 	int iniPeriod;
 	int endPeriod;
 	struct Node *next;
-} NODEPTR;
+} SUBJECT;
 
 
 /************************* CODE CONVENTIONS ***************************/
@@ -57,25 +58,44 @@ void iterate();
 int verifyIndividualPeriod();
 int changeIndividualStatus();
 int saveInfected();
+int plotCurve();
+
+void printHelp();
+SUBJECT subjectFactory(int n);
+  
+
 /*
  * https://c-for-dummies.com/blog/?p=831
  * https://cboard.cprogramming.com/c-programming/51799-plot-graph-screen.html
  */
-int plotCurve();
-
-
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
+	printf("%s\n", argv[1]);
+
+	if(strcmp(argv[1], "-h") || strcmp(argv[1], "--help")){
+		printHelp();
+	}
 	
-	// needs to receive params via command line (argv)
-	
-	// code blocks here
-	
-	return 0; // system status
+	return 0;
 }
 
 
 /************************* FUNCTIONS SECTION **************************/
 
-// functions here
+SUBJECT subjectFactory(int n){
+	SUBJECT v[n];
+}
+
+
+void printHelp(){
+	printf("\nParams: \n\n");
+	printf("Example: \n");
+	printf("	./sir n=100 x=1000 a=20 t=14 d=5 \n\n");
+	printf("n ------------- Number of subjects \n");
+	printf("x ------------- Number of iterations \n");
+	printf("a ------------- Infection probability per iteration \n");
+	printf("t ------------- Time in an infected state \n");
+	printf("d ------------- grade average of relations for each subject \n");
+	printf("\n");
+}
