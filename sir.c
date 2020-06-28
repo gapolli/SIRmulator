@@ -61,7 +61,9 @@ int saveInfected();
 int plotCurve();
 
 void printHelp();
-SUBJECT subjectFactory(int n);
+SUBJECT** subjectFactory(int n);
+int getN(char* string);
+
   
 
 /*
@@ -71,11 +73,14 @@ SUBJECT subjectFactory(int n);
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
-	printf("%s\n", argv[1]);
-
-	if(strcmp(argv[1], "-h") || strcmp(argv[1], "--help")){
+	if(argc < 2 ||strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
 		printHelp();
+		exit(0);
 	}
+
+	int n = getN(argv[1]);
+
+	SUBJECT* subjects = subjectFactory(n);
 	
 	return 0;
 }
@@ -83,13 +88,34 @@ int main(int argc, char* argv[]){
 
 /************************* FUNCTIONS SECTION **************************/
 
-SUBJECT subjectFactory(int n){
-	SUBJECT v[n];
+SUBJECT** subjectFactory(int n){
+	SUBJECT* v[n];
+
+	while(n > 0){
+		SUBJECT *subject;
+		subject = NULL;
+		v[n] = subject;
+		n--;
+	}
+
+	return v;
 }
 
+int getN(char* string){
+	int stringLen = strlen(string) - 1;
+	char* substr[stringLen - 2];
+
+	for(int i = 0; i < (stringLen - 2); i++){
+		substr[i] = &string[i+2];
+	}
+
+	int n = strtol(*substr, NULL, 10);
+
+	return n;
+}
 
 void printHelp(){
-	printf("\nParams: \n\n");
+	printf("Params: \n\n");
 	printf("Example: \n");
 	printf("	./sir n=100 x=1000 a=20 t=14 d=5 \n\n");
 	printf("n ------------- Number of subjects \n");
