@@ -62,7 +62,7 @@ int plotCurve();
 
 void printHelp();
 SUBJECT** subjectFactory(int n);
-int getN(char* string);
+int getArg(char* string);
 
   
 
@@ -73,14 +73,20 @@ int getN(char* string);
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
-	if(argc < 2 ||strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
+	if(argc < 6 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
 		printHelp();
 		exit(0);
 	}
 
-	int n = getN(argv[1]);
+	int n = getArg(argv[1]);
+	int x = getArg(argv[2]);
+	int a = getArg(argv[3]);
+	int t = getArg(argv[4]);
+	int d = getArg(argv[5]);
 
-	SUBJECT* subjects = subjectFactory(n);
+	printf("%d, %d, %d, %d, %d\n", n, x, a, t, d);
+
+	// SUBJECT* subjects = subjectFactory(n);
 	
 	return 0;
 }
@@ -93,7 +99,8 @@ SUBJECT** subjectFactory(int n){
 
 	while(n > 0){
 		SUBJECT *subject;
-		subject = NULL;
+		subject->status = 0;
+		subject->next = NULL;
 		v[n] = subject;
 		n--;
 	}
@@ -101,23 +108,23 @@ SUBJECT** subjectFactory(int n){
 	return v;
 }
 
-int getN(char* string){
-	int stringLen = strlen(string) - 1;
-	char* substr[stringLen - 2];
+int getArg(char* string){
+	int stringLen = strlen(string); //3
+	char* substr[stringLen - 2]; // len = 1
 
 	for(int i = 0; i < (stringLen - 2); i++){
 		substr[i] = &string[i+2];
 	}
 
-	int n = strtol(*substr, NULL, 10);
+	int arg = strtol(*substr, NULL, 10);
 
-	return n;
+	return arg;
 }
 
 void printHelp(){
-	printf("Params: \n\n");
 	printf("Example: \n");
 	printf("	./sir n=100 x=1000 a=20 t=14 d=5 \n\n");
+	printf("Params: \n");
 	printf("n ------------- Number of subjects \n");
 	printf("x ------------- Number of iterations \n");
 	printf("a ------------- Infection probability per iteration \n");
