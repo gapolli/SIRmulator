@@ -15,14 +15,21 @@
 void subjectFactory(SUBJECT *v, int n){
 	// SUBJECT* v[n];
 
-	while(n >= 0){
+	while(n > 0){
 		SUBJECT *subject;
     initList(&subject);
 	  subject = (SUBJECT *) malloc(sizeof(SUBJECT));
     subject->status = SUSCEPTIBLE;
-		v[n] = *subject;
+		v[n-1] = *subject;
 		n--;
 	}
+}
+
+int infectOneSubject(SUBJECT *v, int n){
+  int populationSize = n;
+  int randomNumber = rand() % populationSize;
+  v[randomNumber].status = INFECTED;
+  return 1;
 }
 
 int initList(SUBJECT **start){

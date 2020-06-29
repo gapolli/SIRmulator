@@ -9,10 +9,11 @@ typedef struct Subject{
 } SUBJECT;
 
 void subjectFactory(SUBJECT *v, int n);
-int initList(SUBJECT **start); /* Start an empty list */
-int insertAtTheEnd(SUBJECT **start, int status); /* Receives a char and add it to the end of the list */
-int print(SUBJECT *start); /* Print the list content to the stdout */
-int empty(SUBJECT **start); /* Checks if the list is empty */
+int infectOneSubject(SUBJECT *v, int n);
+int initList(SUBJECT **start); 
+int insertAtTheEnd(SUBJECT **start, int status); 
+int print(SUBJECT *start); 
+int empty(SUBJECT **start);
 int clear(SUBJECT **start);
 int getListLength(SUBJECT *start);
 

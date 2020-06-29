@@ -15,7 +15,6 @@
  * Model for analyzing the spread of an infectious disease.
  */
 
-
 /************************* LIBRARIES SECTION **************************/
 
 #include <stdio.h>
@@ -24,14 +23,11 @@
 #include "linkedList.h"
 
 /************************* CODE CONVENTIONS ***************************/
-
 /*
  * In function returns:
  * 1 - means success
  * 0 - means failure
- */
- 
-
+ */ 
 /************************** HEADERS SECTION ***************************/
 
 int initVector(int populationLimit);
@@ -64,8 +60,16 @@ int main(int argc, char* argv[]){
 
 	SUBJECT subjects[n];
 	subjectFactory(subjects, n);
-	printf("\nsizeof subjects: %d\n", sizeof(subjects)/sizeof(subjects[2]));
-	
+
+	// printf("\nsizeof subjects: %d\n", sizeof(subjects)/sizeof(subjects[0]));
+
+	infectOneSubject(subjects, n);
+
+	/* Print all subjects to debug */
+	for(int i = 0; i < n; i++){
+		printf("\nstatus: %d\n", subjects[i].status);
+	}
+
 	return 0;
 }
 
