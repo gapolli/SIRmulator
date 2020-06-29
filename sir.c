@@ -21,24 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-/************************* CONSTANTS SECTION **************************/
-
-#define SUSCEPTIBLE	0 // S status
-#define INFECTED	1 // I status
-#define RECOVERED	2 // R status
-
-
-/************************* STRUCTURES SECTION *************************/
-
-typedef struct Subject{
-	int status;
-	int iniPeriod;
-	int endPeriod;
-	struct Node *next;
-} SUBJECT;
-
+#include "linkedList.h"
 
 /************************* CODE CONVENTIONS ***************************/
 
@@ -61,15 +44,8 @@ int saveInfected();
 int plotCurve();
 
 void printHelp();
-SUBJECT** subjectFactory(int n);
 int getArg(char* string);
 
-  
-
-/*
- * https://c-for-dummies.com/blog/?p=831
- * https://cboard.cprogramming.com/c-programming/51799-plot-graph-screen.html
- */
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
@@ -86,31 +62,18 @@ int main(int argc, char* argv[]){
 
 	printf("%d, %d, %d, %d, %d\n", n, x, a, t, d);
 
-	// SUBJECT* subjects = subjectFactory(n);
+	SUBJECT subjects[n];
+	subjectFactory(subjects, n);
+	printf("\nsizeof subjects: %d\n", sizeof(subjects)/sizeof(subjects[2]));
 	
 	return 0;
 }
 
-
 /************************* FUNCTIONS SECTION **************************/
 
-SUBJECT** subjectFactory(int n){
-	SUBJECT* v[n];
-
-	while(n > 0){
-		SUBJECT *subject;
-		subject->status = 0;
-		subject->next = NULL;
-		v[n] = subject;
-		n--;
-	}
-
-	return v;
-}
-
 int getArg(char* string){
-	int stringLen = strlen(string); //3
-	char* substr[stringLen - 2]; // len = 1
+	int stringLen = strlen(string); 
+	char* substr[stringLen - 2];
 
 	for(int i = 0; i < (stringLen - 2); i++){
 		substr[i] = &string[i+2];
