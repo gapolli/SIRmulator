@@ -40,14 +40,12 @@ int updateStatus(SUBJECT **subject, int status);
 void addRelationship(SUBJECT *s1, SUBJECT *s2);
 int createGraph(SUBJECT *subjects, int n, int d);
 int randomNumber(int until);
+void verifyArgs(int argc, char* argv[]);
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
-	if(argc < 6 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
-		printHelp();
-		exit(0);
-	}
+	verifyArgs(argc, argv);
 
 	int n = getArg(argv[1]);
 	int x = getArg(argv[2]);
@@ -108,6 +106,14 @@ int getArg(char* string){
 int randomNumber(int until){
 	return rand() % until;
 }
+
+void verifyArgs(int argc, char* argv[]){
+	if(argc < 6 || strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0){
+		printHelp();
+		exit(0);
+	}
+}
+
 
 void printHelp(){
 	printf("Example: \n");
