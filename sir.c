@@ -30,17 +30,15 @@
  */ 
 /************************** HEADERS SECTION ***************************/
 
-int initVector(int populationLimit);
-int calculateGraphDegree(int* vector);
-int connectIndividuals();
 void iterate();
-int verifyIndividualPeriod();
-int changeIndividualStatus();
 int saveInfected();
 int plotCurve();
 
 void printHelp();
 int getArg(char* string);
+int updateStatus(SUBJECT **subject, int status);
+void addRelationship(SUBJECT *s1, SUBJECT *s2);
+int createGraph(int n, int d);
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
@@ -56,24 +54,26 @@ int main(int argc, char* argv[]){
 	int t = getArg(argv[4]);
 	int d = getArg(argv[5]);
 
-	printf("%d, %d, %d, %d, %d\n", n, x, a, t, d);
-
 	SUBJECT subjects[n];
-	subjectFactory(subjects, n);
-
-	// printf("\nsizeof subjects: %d\n", sizeof(subjects)/sizeof(subjects[0]));
-
-	infectOneSubject(subjects, n);
-
-	/* Print all subjects to debug */
-	for(int i = 0; i < n; i++){
-		printf("\nstatus: %d\n", subjects[i].status);
-	}
+	subjectFactory(subjects, n, t);
+	infectOneSubject(subjects, n, t, 0);
+	addRelationship(&subjects[1], &subjects[3]);
+	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
 
 	return 0;
 }
 
 /************************* FUNCTIONS SECTION **************************/
+
+void addRelationship(SUBJECT *s1, SUBJECT *s2){
+	insert(s1, s2);
+	insert(s2, s1);
+}
+
+int updateStatus(SUBJECT **subject, int status){
+  (*subject)->status = status;
+  return 0;
+}
 
 int getArg(char* string){
 	int stringLen = strlen(string); 
