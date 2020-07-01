@@ -38,7 +38,8 @@ void printHelp();
 int getArg(char* string);
 int updateStatus(SUBJECT **subject, int status);
 void addRelationship(SUBJECT *s1, SUBJECT *s2);
-int createGraph(int n, int d);
+int createGraph(SUBJECT *subjects, int n, int d);
+int randomNumber(int until);
 
 /*********************** MAIN FUNCTION SECTION ************************/
 
@@ -57,13 +58,29 @@ int main(int argc, char* argv[]){
 	SUBJECT subjects[n];
 	subjectFactory(subjects, n, t);
 	infectOneSubject(subjects, n, t, 0);
-	addRelationship(&subjects[1], &subjects[3]);
+	createGraph(subjects, n, d);
 	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
 
 	return 0;
 }
 
 /************************* FUNCTIONS SECTION **************************/
+
+int createGraph(SUBJECT *subjects, int n, int d){
+	if(n < d){
+		printf("The number of subjects can't be smaller than the number of relations\n");
+		exit(1);
+	}
+
+	for(int i = 0; i < n; i++){
+		for(int k = 0; k < d; k++){
+			//TODO: Be sure that the randomNumber never returns a repeated value
+			int randomIndex = randomNumber(n);
+			addRelationship(&subjects[i], &subjects[randomIndex]);
+		}
+	}
+	return 0;
+}
 
 void addRelationship(SUBJECT *s1, SUBJECT *s2){
 	insert(s1, s2);
@@ -86,6 +103,10 @@ int getArg(char* string){
 	int arg = strtol(*substr, NULL, 10);
 
 	return arg;
+}
+
+int randomNumber(int until){
+	return rand() % until;
 }
 
 void printHelp(){

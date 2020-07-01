@@ -22,6 +22,7 @@ void subjectFactory(SUBJECT *v, int n, int t){
     subject->status = SUSCEPTIBLE;
     subject->iniPeriod = 0;
     subject->endPeriod = 0;
+    subject->relations = 0;
     subject->next = NULL;
     
     v[i] = *subject;
@@ -72,6 +73,7 @@ int insert(SUBJECT *subject, SUBJECT *subject2){
 	newSubject->endPeriod = subject->endPeriod;
 	newSubject->next = NULL;
   
+  subject2->relations = (subject2->relations + 1);
   if(subject2->next == NULL){
     subject2->next = newSubject;
   }else{

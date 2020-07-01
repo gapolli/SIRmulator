@@ -6,6 +6,7 @@ typedef struct Subject{
 	int status;
 	int iniPeriod;
 	int endPeriod;
+	int relations;
 	struct Subject *next;
 } SUBJECT;
 
