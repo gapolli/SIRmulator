@@ -44,14 +44,15 @@ int initList(SUBJECT **subject){
 }
 
 int print(SUBJECT *subject){
-  printf("\nid: %d\n", subject->id);
-  printf("\nstatus: %d\n", subject->status);
-  printf("\ninicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
-  printf("\nfim do periodo de infecção (iteração): %d\n", subject->endPeriod);
+  printf("\n %d ->", subject->id);
   while(subject->next != NULL){
-    printf("\nnext id: %d\n", (subject->next)->id);
+    printf(" %d ->", (subject->next)->id);
     subject = subject->next;
   }
+  printf("\n");
+  printf("status: %d\n", subject->status);
+  printf("inicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
+  printf("fim do periodo de infecção (iteração): %d\n", subject->endPeriod);
   return 0;
 }
 
@@ -65,6 +66,10 @@ int printAll(SUBJECT *v, int length) {
 }
 
 int insert(SUBJECT *subject, SUBJECT *subject2){
+  if(isRelationValid(subject, subject2->id) == 1){
+    return 1;
+  }
+
   SUBJECT *newSubject;
 	newSubject = (SUBJECT *) malloc(sizeof(SUBJECT));
 	newSubject->id = subject->id;
@@ -84,4 +89,34 @@ int insert(SUBJECT *subject, SUBJECT *subject2){
   }
 
   return 0;
+}
+
+int getNumberOfRelations(SUBJECT *s){
+  SUBJECT *aux;
+  aux = s;
+  int res = 0;
+  if(s->next == NULL)
+    return 0;
+
+  while(aux->next != NULL){
+    res++;
+    aux = aux->next;
+  }
+  return res;
+}
+
+int isRelationValid(SUBJECT *s, int id){
+  SUBJECT *aux;
+  aux = s;
+
+  if(aux->next == NULL && aux->id != id){
+    return 0;
+  }
+
+  while(aux->next != NULL){
+    if(aux->id == id)
+      return 1;
+
+    aux = aux->next;
+  }
 }
