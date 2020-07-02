@@ -69,11 +69,8 @@ int main(int argc, char* argv[]){
 	createGraph(subjects, n, d);
 
 	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
-<<<<<<< HEAD
 	// print(&subjects[3]);
 
-=======
->>>>>>> 923f1c536f845cee4dca2d5429ebb5df57bb9534
 	return 0;
 }
 
@@ -127,11 +124,7 @@ void verifyArgs(int argc, char* argv[]){
 		printHelp();
 		exit(0);
 	}
-<<<<<<< HEAD
 }
-=======
-	}
->>>>>>> 923f1c536f845cee4dca2d5429ebb5df57bb9534
 
 void printHelp(){
 	printf("Example: \n");
