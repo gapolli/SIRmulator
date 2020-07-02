@@ -1,6 +1,7 @@
 #ifndef LINKED_LIST
 #define LINKED_LIST
 /* ^^ these are the include guards */
+
 typedef struct Subject{
 	int id;
 	int status;
