@@ -14,6 +14,15 @@
  * written in C based on the SIR (Susceptible, Infected and Recovered)
  * Model for analyzing the spread of an infectious disease.
  */
+ 
+/************************* REFERENCES SECTION *************************/
+
+/*
+ * https://c-for-dummies.com/blog/?p=831
+ * https://cboard.cprogramming.com/c-programming/51799-plot-graph-screen.html
+ * https://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/graphdatastructs.html
+ */
+ 
 
 /************************* LIBRARIES SECTION **************************/
 
@@ -22,18 +31,20 @@
 #include <string.h>
 #include "linkedList.h"
 
+
 /************************* CODE CONVENTIONS ***************************/
 /*
  * In function returns:
  * 1 - means success
  * 0 - means failure
- */ 
+ */
+ 
+ 
 /************************** HEADERS SECTION ***************************/
 
 void iterate();
 int saveInfected();
 int plotCurve();
-
 void printHelp();
 int getArg(char* string);
 int updateStatus(SUBJECT **subject, int status);
@@ -42,27 +53,30 @@ int createGraph(SUBJECT *subjects, int n, int d);
 int randomNumber(int until);
 void verifyArgs(int argc, char* argv[]);
 
+
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
 	verifyArgs(argc, argv);
-
 	int n = getArg(argv[1]);
 	int x = getArg(argv[2]);
 	int a = getArg(argv[3]);
 	int t = getArg(argv[4]);
 	int d = getArg(argv[5]);
-
 	SUBJECT subjects[n];
 	subjectFactory(subjects, n, t);
 	infectOneSubject(subjects, n, t, 0);
 	createGraph(subjects, n, d);
 
 	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
+<<<<<<< HEAD
 	// print(&subjects[3]);
 
+=======
+>>>>>>> 923f1c536f845cee4dca2d5429ebb5df57bb9534
 	return 0;
 }
+
 
 /************************* FUNCTIONS SECTION **************************/
 
@@ -71,7 +85,6 @@ int createGraph(SUBJECT *subjects, int n, int d){
 		printf("The number of subjects can't be smaller than the number of relations\n");
 		exit(1);
 	}
-
 	for(int i = 0; i < n; i++){
 		if(getNumberOfRelations(&subjects[i]) < d){
 			for(int k = 0; k < d; k++){
@@ -101,9 +114,7 @@ int getArg(char* string){
 	for(int i = 0; i < (stringLen - 2); i++){
 		substr[i] = &string[i+2];
 	}
-
 	int arg = strtol(*substr, NULL, 10);
-
 	return arg;
 }
 
@@ -116,7 +127,11 @@ void verifyArgs(int argc, char* argv[]){
 		printHelp();
 		exit(0);
 	}
+<<<<<<< HEAD
 }
+=======
+	}
+>>>>>>> 923f1c536f845cee4dca2d5429ebb5df57bb9534
 
 void printHelp(){
 	printf("Example: \n");

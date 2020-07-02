@@ -10,37 +10,36 @@
 #define INFECTED	1 // I status
 #define RECOVERED	2 // R status
 
+
 /************************* FUNCTIONS SECTION **************************/
 
 void subjectFactory(SUBJECT *v, int n, int t){
 	for(int i = 0; i < n; i++){
 		SUBJECT *subject;
-    initList(&subject);
-	  subject = (SUBJECT *) malloc(sizeof(SUBJECT));
-
-    subject->id = i;
-    subject->status = SUSCEPTIBLE;
-    subject->iniPeriod = 0;
-    subject->endPeriod = 0;
-    subject->relations = 0;
-    subject->next = NULL;
-    
-    v[i] = *subject;
+		initList(&subject);
+		subject = (SUBJECT *) malloc(sizeof(SUBJECT));
+		subject->id = i;
+		subject->status = SUSCEPTIBLE;
+		subject->iniPeriod = 0;
+		subject->endPeriod = 0;
+		subject->relations = 0;
+		subject->next = NULL;    
+		v[i] = *subject;
 	}
 }
 
 int infectOneSubject(SUBJECT *v, int n, int t, int iteration){
-  int populationSize = n;
-  int randomNumber = rand() % populationSize;
-  v[randomNumber].status = INFECTED;
-  v[randomNumber].iniPeriod = iteration;
-  v[randomNumber].endPeriod = iteration + t;
-  return 1;
+	int populationSize = n;
+	int randomNumber = rand() % populationSize;
+	v[randomNumber].status = INFECTED;
+	v[randomNumber].iniPeriod = iteration;
+	v[randomNumber].endPeriod = iteration + t;
+	return 1;
 }
 
 int initList(SUBJECT **subject){
-  *subject = NULL;
-  return 0;
+	*subject = NULL;
+	return 0;
 }
 
 int print(SUBJECT *subject){
@@ -57,12 +56,11 @@ int print(SUBJECT *subject){
 }
 
 int printAll(SUBJECT *v, int length) {
-  for(int i = 0; i < length; i++){
+	for(int i = 0; i < length; i++){
 		print(&v[i]);
 		printf("\n<---------------------------->\n");
 	}
-
-  return 0;
+	return 0;
 }
 
 int insert(SUBJECT *subject, SUBJECT *subject2){
