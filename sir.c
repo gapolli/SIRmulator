@@ -69,7 +69,6 @@ int main(int argc, char* argv[]){
 	createGraph(subjects, n, d);
 
 	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
-	// print(&subjects[3]);
 
 	return 0;
 }
@@ -86,7 +85,6 @@ int createGraph(SUBJECT *subjects, int n, int d){
 		if(getNumberOfRelations(&subjects[i]) < d){
 			for(int k = 0; k < d; k++){
 				int randomIndex = randomNumber(n);
-				// printf("\nGerou esse valor: %d\n", randomIndex);
 				addRelationship(&subjects[i], &subjects[randomIndex]);
 			}
 		}

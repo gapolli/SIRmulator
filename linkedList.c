@@ -117,4 +117,6 @@ int isRelationValid(SUBJECT *s, int id){
 
     aux = aux->next;
   }
+
+  return 0;
 }
