@@ -28,7 +28,7 @@ void subjectFactory(SUBJECT *v, int n, int t){
 	}
 }
 
-int infectOneSubject(SUBJECT *v, int n, int t, int iteration){
+int infectRandomSubject(SUBJECT *v, int n, int t, int iteration){
 	int populationSize = n;
 	int randomNumber = rand() % populationSize;
 	v[randomNumber].status = INFECTED;
@@ -37,21 +37,29 @@ int infectOneSubject(SUBJECT *v, int n, int t, int iteration){
 	return 1;
 }
 
+void infectSubject(SUBJECT *subjects, int id, int iteration, int infectionPeriod){
+  subjects[id].status = INFECTED;
+  subjects[id].iniPeriod = iteration;
+  subjects[id].endPeriod = iteration + infectionPeriod;
+}
+
+
 int initList(SUBJECT **subject){
 	*subject = NULL;
 	return 0;
 }
 
-int print(SUBJECT *subject){
+int print(SUBJECT *subject){  
+  printf("\n");
+  printf("status: %d\n", subject->status);
+  printf("inicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
+  printf("fim do periodo de infecção (iteração): %d\n", subject->endPeriod);
+  printf("\n");
   printf("\n %d ->", subject->id);
   while(subject->next != NULL){
     printf(" %d ->", (subject->next)->id);
     subject = subject->next;
   }
-  printf("\n");
-  printf("status: %d\n", subject->status);
-  printf("inicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
-  printf("fim do periodo de infecção (iteração): %d\n", subject->endPeriod);
   return 0;
 }
 

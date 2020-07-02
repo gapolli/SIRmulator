@@ -12,12 +12,13 @@ typedef struct Subject{
 } SUBJECT;
 
 void subjectFactory(SUBJECT *v, int n, int t);
-int infectOneSubject(SUBJECT *v, int n, int t, int iteration);
+int infectRandomSubject(SUBJECT *v, int n, int t, int iteration);
 int initList(SUBJECT **start); 
 int insert(SUBJECT *subject, SUBJECT *subject2);
 int print(SUBJECT *subject);
 int printAll(SUBJECT *v, int length);
 int getNumberOfRelations(SUBJECT *s);
 int isRelationValid(SUBJECT *s, int id);
+void infectSubject(SUBJECT *subjects, int id, int iteration, int infectionPeriod);
 
 #endif

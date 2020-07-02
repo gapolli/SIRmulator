@@ -38,13 +38,16 @@
  * 1 - means success
  * 0 - means failure
  */
+
+/************************* CONSTANTS ***************************/
+
+#define SUSCEPTIBLE	0 // S status
+#define INFECTED	1 // I status
+#define RECOVERED	2 // R status
  
  
 /************************** HEADERS SECTION ***************************/
 
-void iterate();
-int saveInfected();
-int plotCurve();
 void printHelp();
 int getArg(char* string);
 int updateStatus(SUBJECT **subject, int status);
@@ -52,6 +55,12 @@ void addRelationship(SUBJECT *s1, SUBJECT *s2);
 int createGraph(SUBJECT *subjects, int n, int d);
 int randomNumber(int until);
 void verifyArgs(int argc, char* argv[]);
+void runSimulation(SUBJECT *subjects, int x, int a, int t, int n);
+int	isInfected(SUBJECT *subject);
+int	isSusceptible(SUBJECT *subject);
+int	isRecovered(SUBJECT *subject);
+int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration, int t);
+int didInfectionOccur(int a);
 
 
 /*********************** MAIN FUNCTION SECTION ************************/
@@ -61,20 +70,96 @@ int main(int argc, char* argv[]){
 	int n = getArg(argv[1]);
 	int x = getArg(argv[2]);
 	int a = getArg(argv[3]);
+
+	if(a > 100){
+		printf("Parameter \'a\' shouldn't be greater than 100");
+	}
+	
 	int t = getArg(argv[4]);
 	int d = getArg(argv[5]);
 	SUBJECT subjects[n];
 	subjectFactory(subjects, n, t);
-	infectOneSubject(subjects, n, t, 0);
+	infectRandomSubject(subjects, n, t, 0);
 	createGraph(subjects, n, d);
 
-	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
 
+	runSimulation(subjects, x, a, t, n);
+
+	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
 	return 0;
 }
 
 
 /************************* FUNCTIONS SECTION **************************/
+
+void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
+	for(int i = 0; i < x; i++){
+		for(int k = 0; k < n; k++){
+			if(isInfected(&subjects[k]) == 1){
+				printf("Entrou aqui\n");
+				tryToInfectOthers(&subjects[k], a, subjects, i, t);
+				//TODO: Check if the infectionPeriod ended
+			}
+		}
+	}
+}
+
+int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration, int t){
+	SUBJECT *aux;
+	aux = subject;
+
+	int infections = 0;
+
+	if(aux->next == NULL){
+		return infections;
+	}
+
+	while(aux->next != NULL){
+		if(didInfectionOccur(a) == 1 && isSusceptible(subject)){
+			infectSubject(subjects, aux->id, iteration, t);
+			infections++;
+			printf("\nInfectou\n");
+		}
+		aux = aux->next;
+	}
+
+	return infections;
+}
+
+int didInfectionOccur(int a){
+	int res = randomNumber(100);
+
+	if(res < a){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+int	isInfected(SUBJECT *subject){
+	if(subject->status == INFECTED){
+		printf("\nstatus: %d\n", subject->status);
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+int	isSusceptible(SUBJECT *subject){
+	if(subject->status == SUSCEPTIBLE){
+		return 1;
+	}else{
+		return 0;
+	}
+}
+
+int	isRecovered(SUBJECT *subject){
+	if(subject->status == RECOVERED){
+		return 1;
+	}else{
+		return 0;
+	}
+}
 
 int createGraph(SUBJECT *subjects, int n, int d){
 	if(n < d){
