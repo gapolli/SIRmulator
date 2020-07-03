@@ -50,7 +50,6 @@
 
 void printHelp();
 int getArg(char* string);
-int updateStatus(SUBJECT **subject, int status);
 void addRelationship(SUBJECT *s1, SUBJECT *s2);
 int createGraph(SUBJECT *subjects, int n, int d);
 int randomNumber(int until);
@@ -58,7 +57,6 @@ void verifyArgs(int argc, char* argv[]);
 void runSimulation(SUBJECT *subjects, int x, int a, int t, int n);
 int	isInfected(SUBJECT *subject);
 int	isSusceptible(SUBJECT *subject);
-int	isRecovered(SUBJECT *subject);
 int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration, int t);
 int didInfectionOccur(int a);
 
@@ -157,14 +155,6 @@ int	isSusceptible(SUBJECT *subject){
 	}
 }
 
-int	isRecovered(SUBJECT *subject){
-	if(subject->status == RECOVERED){
-		return 1;
-	}else{
-		return 0;
-	}
-}
-
 int createGraph(SUBJECT *subjects, int n, int d){
 	if(n < d){
 		printf("The number of subjects can't be smaller than the number of relations\n");
@@ -184,11 +174,6 @@ int createGraph(SUBJECT *subjects, int n, int d){
 void addRelationship(SUBJECT *s1, SUBJECT *s2){
 	insert(s1, s2);
 	insert(s2, s1);
-}
-
-int updateStatus(SUBJECT **subject, int status){
-  (*subject)->status = status;
-  return 0;
 }
 
 int getArg(char* string){
