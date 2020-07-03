@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "linkedList.h"
 
 
@@ -64,6 +65,8 @@ int didInfectionOccur(int a);
 /*********************** MAIN FUNCTION SECTION ************************/
 
 int main(int argc, char* argv[]){
+	time_t currTime;
+	srand((unsigned) time(&currTime));
 	verifyArgs(argc, argv);
 	int n = getArg(argv[1]);
 	int x = getArg(argv[2]);
