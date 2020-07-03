@@ -60,6 +60,7 @@ int	isInfected(SUBJECT *subject);
 int	isSusceptible(SUBJECT *subject);
 int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration, int t);
 int didInfectionOccur(int a);
+void writeFile(int iteration, int infections);
 
 
 /*********************** MAIN FUNCTION SECTION ************************/
@@ -92,8 +93,27 @@ int main(int argc, char* argv[]){
 
 /************************* FUNCTIONS SECTION **************************/
 
+void cleanFile(){
+	FILE *fp;
+	fp = fopen("data.txt", "w+");
+	fprintf(fp, "");
+	fclose(fp);
+}
+
+void writeFile(int iteration, int infections){
+	FILE *fp;
+	fp = fopen("data.txt", "a+");
+
+	fprintf(fp, "\nIteration: %d\nInfections: %d\n", iteration, infections);
+	fprintf(fp, "\n");
+
+	fclose(fp);
+}
+
+
 void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
 	int infections = 0;
+	cleanFile();
 	for(int i = 0; i <= x; i++){
 		if(infections == (n - 2))
 			break;
@@ -106,6 +126,7 @@ void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
 		}
 		printf("\nIteration: %d", i);
 		printf("\nInfections: %d\n", infections);
+		writeFile(i, infections);
 	}
 
 	printf("\n---------- Completed simulation with %d infections ----------\n", infections);
