@@ -43,6 +43,15 @@ void infectSubject(SUBJECT *subjects, int id, int iteration, int infectionPeriod
   subjects[id].endPeriod = iteration + infectionPeriod;
 }
 
+int recoverSubject(SUBJECT *subjects, int id, int iteration){
+  if(subjects[id].endPeriod < iteration){
+    subjects[id].status = RECOVERED;
+    return 1;
+  }
+
+  return 0;
+}
+
 
 int initList(SUBJECT **subject){
 	*subject = NULL;

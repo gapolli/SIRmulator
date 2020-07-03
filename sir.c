@@ -82,10 +82,9 @@ int main(int argc, char* argv[]){
 	infectRandomSubject(subjects, n, t, 0);
 	createGraph(subjects, n, d);
 
-
 	runSimulation(subjects, x, a, t, n);
 
-	printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
+	// printAll(subjects, sizeof(subjects)/sizeof(subjects[0]));
 	return 0;
 }
 
@@ -93,21 +92,27 @@ int main(int argc, char* argv[]){
 /************************* FUNCTIONS SECTION **************************/
 
 void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
-	for(int i = 0; i < x; i++){
+	int infections = 0;
+	for(int i = 0; i <= x; i++){
+		if(infections == (n - 1))
+			break;
+
 		for(int k = 0; k < n; k++){
 			if(isInfected(&subjects[k]) == 1){
-				printf("Entrou aqui\n");
-				tryToInfectOthers(&subjects[k], a, subjects, i, t);
-				//TODO: Check if the infectionPeriod ended
+				infections += tryToInfectOthers(&subjects[k], a, subjects, i, t);
+				recoverSubject(subjects, (&subjects[k])->id, i);
 			}
 		}
+		printf("\nIteration: %d\n", i);
+		printf("\nInfections: %d\n", infections);
 	}
+
+	printf("\n---------- Completed simulation with %d infections ----------\n", infections);
 }
 
 int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration, int t){
 	SUBJECT *aux;
 	aux = subject;
-
 	int infections = 0;
 
 	if(aux->next == NULL){
@@ -115,10 +120,11 @@ int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration,
 	}
 
 	while(aux->next != NULL){
-		if(didInfectionOccur(a) == 1 && isSusceptible(subject)){
+		if(didInfectionOccur(a) == 1 && isSusceptible(&subjects[aux->id])){
+			printf("\n %d infectou %d\n", subject->id, aux->id);
+			aux->status = INFECTED;
 			infectSubject(subjects, aux->id, iteration, t);
 			infections++;
-			printf("\nInfectou\n");
 		}
 		aux = aux->next;
 	}
@@ -128,7 +134,6 @@ int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration,
 
 int didInfectionOccur(int a){
 	int res = randomNumber(100);
-
 	if(res < a){
 		return 1;
 	}else{
@@ -138,7 +143,6 @@ int didInfectionOccur(int a){
 
 int	isInfected(SUBJECT *subject){
 	if(subject->status == INFECTED){
-		printf("\nstatus: %d\n", subject->status);
 		return 1;
 	}else{
 		return 0;
