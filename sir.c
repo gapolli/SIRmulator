@@ -94,7 +94,7 @@ int main(int argc, char* argv[]){
 void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
 	int infections = 0;
 	for(int i = 0; i <= x; i++){
-		if(infections == (n - 1))
+		if(infections == (n - 2))
 			break;
 
 		for(int k = 0; k < n; k++){
@@ -103,7 +103,7 @@ void runSimulation(SUBJECT *subjects, int x, int a, int t, int n){
 				recoverSubject(subjects, (&subjects[k])->id, i);
 			}
 		}
-		printf("\nIteration: %d\n", i);
+		printf("\nIteration: %d", i);
 		printf("\nInfections: %d\n", infections);
 	}
 
