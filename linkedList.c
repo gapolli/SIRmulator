@@ -38,18 +38,18 @@ int infectRandomSubject(SUBJECT *v, int n, int t, int iteration){
 }
 
 void infectSubject(SUBJECT *subjects, int id, int iteration, int infectionPeriod){
-  subjects[id].status = INFECTED;
-  subjects[id].iniPeriod = iteration;
-  subjects[id].endPeriod = iteration + infectionPeriod;
+	subjects[id].status = INFECTED;
+	subjects[id].iniPeriod = iteration;
+	subjects[id].endPeriod = iteration + infectionPeriod;
 }
 
 int recoverSubject(SUBJECT *subjects, int id, int iteration){
-  if(subjects[id].endPeriod < iteration){
-    subjects[id].status = RECOVERED;
-    return 1;
-  }
+	if(subjects[id].endPeriod < iteration){
+		subjects[id].status = RECOVERED;
+		return 1;
+	}
 
-  return 0;
+	return 0;
 }
 
 
@@ -59,17 +59,17 @@ int initList(SUBJECT **subject){
 }
 
 int print(SUBJECT *subject){  
-  printf("\n");
-  printf("status: %d\n", subject->status);
-  printf("inicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
-  printf("fim do periodo de infecção (iteração): %d\n", subject->endPeriod);
-  printf("\n");
-  printf("\n %d ->", subject->id);
-  while(subject->next != NULL){
-    printf(" %d ->", (subject->next)->id);
-    subject = subject->next;
-  }
-  return 0;
+	printf("\n");
+	printf("status: %d\n", subject->status);
+	printf("inicio do periodo de infecção (iteração): %d\n", subject->iniPeriod);
+	printf("fim do periodo de infecção (iteração): %d\n", subject->endPeriod);
+	printf("\n");
+	printf("\n %d ->", subject->id);
+	while(subject->next != NULL){
+		printf(" %d ->", (subject->next)->id);
+		subject = subject->next;
+	}
+	return 0;
 }
 
 int printAll(SUBJECT *v, int length) {
@@ -81,11 +81,10 @@ int printAll(SUBJECT *v, int length) {
 }
 
 int insert(SUBJECT *subject, SUBJECT *subject2){
-  if(isRelationValid(subject, subject2->id) == 1){
-    return 1;
-  }
+	if(isRelationValid(subject, subject2->id) == 1)
+		return 1;
 
-  SUBJECT *newSubject;
+	SUBJECT *newSubject;
 	newSubject = (SUBJECT *) malloc(sizeof(SUBJECT));
 	newSubject->id = subject->id;
 	newSubject->status = subject->status;
@@ -93,47 +92,46 @@ int insert(SUBJECT *subject, SUBJECT *subject2){
 	newSubject->endPeriod = subject->endPeriod;
 	newSubject->next = NULL;
   
-  subject2->relations = (subject2->relations + 1);
-  if(subject2->next == NULL){
-    subject2->next = newSubject;
-  }else{
-    while(subject2->next != NULL){
-      subject2 = subject2->next;
-    }
-    subject2->next = newSubject;
-  }
+	subject2->relations = (subject2->relations + 1);
+	if(subject2->next == NULL)
+		subject2->next = newSubject;
+	else{
+		while(subject2->next != NULL){
+			subject2 = subject2->next;
+		}
+		subject2->next = newSubject;
+	}
 
-  return 0;
+	return 0;
 }
 
 int getNumberOfRelations(SUBJECT *s){
-  SUBJECT *aux;
-  aux = s;
-  int res = 0;
-  if(s->next == NULL)
-    return 0;
+	SUBJECT *aux;
+	aux = s;
+	int res = 0;
+	if(s->next == NULL)
+		return 0;
 
-  while(aux->next != NULL){
-    res++;
-    aux = aux->next;
-  }
-  return res;
+	while(aux->next != NULL){
+		res++;
+		aux = aux->next;
+	}
+	return res;
 }
 
 int isRelationValid(SUBJECT *s, int id){
-  SUBJECT *aux;
-  aux = s;
+	SUBJECT *aux;
+	aux = s;
 
-  if(aux->next == NULL && aux->id != id){
-    return 0;
-  }
+	if(aux->next == NULL && aux->id != id)
+		return 0;
 
-  while(aux->next != NULL){
-    if(aux->id == id)
-      return 1;
+	while(aux->next != NULL){
+		if(aux->id == id)
+			return 1;
 
-    aux = aux->next;
-  }
+		aux = aux->next;
+	}
 
-  return 0;
+	return 0;
 }

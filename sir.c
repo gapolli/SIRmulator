@@ -39,6 +39,7 @@
  * 1 - means success
  * 0 - means failure
  */
+ 
 
 /************************* CONSTANTS ***************************/
 
@@ -73,9 +74,8 @@ int main(int argc, char* argv[]){
 	int x = getArg(argv[2]);
 	int a = getArg(argv[3]);
 
-	if(a > 100){
+	if(a > 100)
 		printf("Parameter \'a\' shouldn't be greater than 100");
-	}
 	
 	int t = getArg(argv[4]);
 	int d = getArg(argv[5]);
@@ -137,9 +137,8 @@ int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration,
 	aux = subject;
 	int infections = 0;
 
-	if(aux->next == NULL){
+	if(aux->next == NULL)
 		return infections;
-	}
 
 	while(aux->next != NULL){
 		if(didInfectionOccur(a) == 1 && isSusceptible(&subjects[aux->id])){
@@ -156,27 +155,24 @@ int	tryToInfectOthers(SUBJECT *subject, int a, SUBJECT *subjects, int iteration,
 
 int didInfectionOccur(int a){
 	int res = randomNumber(100);
-	if(res < a){
+	if(res < a)
 		return 1;
-	}else{
+	else
 		return 0;
-	}
 }
 
 int	isInfected(SUBJECT *subject){
-	if(subject->status == INFECTED){
+	if(subject->status == INFECTED)
 		return 1;
-	}else{
+	else
 		return 0;
-	}
 }
 
 int	isSusceptible(SUBJECT *subject){
-	if(subject->status == SUSCEPTIBLE){
+	if(subject->status == SUSCEPTIBLE)
 		return 1;
-	}else{
+	else
 		return 0;
-	}
 }
 
 int createGraph(SUBJECT *subjects, int n, int d){
