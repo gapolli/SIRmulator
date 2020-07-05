@@ -4,28 +4,28 @@ SIRmulator is a small command line **epidemiological simulator** written in C ba
 
 ## How to run (Unix)
 
-- Compile the source with:
+Compile the source with:
 ```bash
-    $ make all
+$ make all
 ```
 
-- Execute the program and provide the necessary parameters
+Execute the program and provide the necessary parameters:
 ```bash
-	$ ./sir n x a t d
+$ ./sir n x a t d
 ```
-  
+
 Where: \
 **n -** is the number of subjects (population) \
 **x -** is the number of iterations that the program must perform \
 **a -** is the infection probability per iteration \
 **t -** is the average period of infection per subject \
 **d -** is the grade average of relations for each subject \
-  
+
 Example:
 ```bash
-	$ ./sir n=100 x=1000 a=20 t=14 d=5
+$ ./sir n=100 x=1000 a=20 t=14 d=5
 ```
-  
+
 If you do not provide any parameters, the program should display a help screen.
 
 ## Contributors (sorted alphabetically):
